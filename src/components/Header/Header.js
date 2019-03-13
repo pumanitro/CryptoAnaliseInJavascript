@@ -1,18 +1,15 @@
 import React from "react";
 
-import { webSocket } from "rxjs/webSocket";
-import { WEBSOCKET_API_URL } from "config/config";
+import BtfxWSService from "services/BtfxWSService";
 
-const subject = webSocket(WEBSOCKET_API_URL);
-
-subject.subscribe(
-  msg => console.log("message received: " + JSON.stringify(msg)) // Called whenever there is a message from the server.
-);
-
-subject.next({
-  event: "subscribe",
-  channel: "candles",
-  key: "trade:1m:tBTCUSD"
-});
+new BtfxWSService()
+  .defineChannel({
+    event: "subscribe",
+    channel: "candles",
+    key: "trade:1m:tBTCUSD"
+  })
+  .handleSnapshot(snapshot => console.log("Snapshot" + snapshot))
+  .handleUpdate(value => console.log("Updated Value" + value))
+  .subscribe();
 
 export default () => <h1>CAJS</h1>;
