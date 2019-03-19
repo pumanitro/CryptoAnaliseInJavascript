@@ -1,0 +1,10 @@
+Core MVP:
+
+[] Updating Candles 
+[] Fetching more candles with usage of Btfx rest API
+[] Dynamically changing timeFrame and Cryptocurrency
+
+
+Bugs/Errors/Meantime tasks:
+
+[] fix problem with dynamic change of  <CandlestickSeries width={timeIntervalBarWidth(utcMinute)} />
