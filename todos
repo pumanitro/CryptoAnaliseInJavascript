@@ -1,31 +1,18 @@
-Core MVP:
+PRIORITY:
+[][Core MVP] Fetching more candles with usage of Btfx rest API
+[][BEM] Create useCandles hook 
 
-[] Updating Candles 
+Core MVP:
+[x] initial data displayed
+[x] Updating Candles 
 [] Fetching more candles with usage of Btfx rest API
 [] Dynamically changing timeFrame and Cryptocurrency
 
+Additionally: 
+[] *! jak zerwie połączenie to trzeba nawiązać ponownie
+[] * volumes screen displayed
+[] actionCreator copy
 
 Bugs/Errors/Meantime tasks:
-
 [] fix problem with dynamic change of  <CandlestickSeries width={timeIntervalBarWidth(utcMinute)} />
-
-
-Think about:
-
-[] btfx service
-    []*! jak zerwie połączenie to trzeba nawiązać ponownie
-[] Chart
-    [] initial data displayed
-    [] real time data changing
-    [] load more on pan when scroll
-    []* volumes screen displayed
-    []* possibility of changing subscribed channel for different cryptos
-
-
-Drunk Engineer Todo List:
-[x] redux + devtools
-[x] sagi
-[] Observable Rxjs
-[] react stock chart
-[] actionCreator copy
-[] directories structure?
+[] Create useCandles hook 
