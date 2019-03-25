@@ -12,3 +12,7 @@ export function parseCandle(candle) {
 export function parseCandles(candles) {
   return candles.reverse().map(candle => parseCandle(candle));
 }
+
+export function dateToTimeStamp(date) {
+  return Math.floor(date / 1);
+}
