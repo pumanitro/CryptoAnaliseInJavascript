@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import BtfxWSService from "services/BtfxWSService";
 import { parseCandles, parseCandle, dateToTimeStamp } from "utils/BtfxUtils";
 import _ from "lodash";
+import { replaceOrAddAtEnd } from "utils/Collections";
 
 export default function useBtfxCandles() {
   let [candles, setCandles] = useState([]);
@@ -21,17 +22,15 @@ export default function useBtfxCandles() {
         if (value[1] !== "hb") {
           const parsedCandle = parseCandle(value[1]);
 
-          const isNewCandleInCandles =
-            _.find(
+          setCandles(
+            replaceOrAddAtEnd(
               candlesRef.current,
               candle =>
                 dateToTimeStamp(parsedCandle.date) ===
-                dateToTimeStamp(candle.date)
-            ) !== undefined;
-
-          if (!isNewCandleInCandles) {
-            setCandles([...candlesRef.current, parsedCandle]);
-          }
+                dateToTimeStamp(candle.date),
+              parsedCandle
+            )
+          );
         } else {
           console.log(value);
         }
