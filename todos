@@ -6,6 +6,7 @@ Core MVP:
 [x] initial data displayed
 [x] Updating Candles 
 [] Fetching more candles with usage of Btfx rest API
+[] Keeping pane and zoom position after changing data on the chart
 [] Dynamically changing timeFrame and Cryptocurrency
 
 Additionally: 
