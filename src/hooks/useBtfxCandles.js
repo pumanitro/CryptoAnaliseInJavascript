@@ -4,7 +4,7 @@ import { parseCandles, parseCandle, dateToTimeStamp } from "utils/BtfxUtils";
 import _ from "lodash";
 import { replaceOrAddAtEnd } from "utils/Collections";
 
-export default function useBtfxCandles() {
+export default function useBtfxCandles(timeFrame, symbol) {
   let [candles, setCandles] = useState([]);
 
   let candlesRef = useRef(candles);
@@ -15,7 +15,7 @@ export default function useBtfxCandles() {
       .defineChannel({
         event: "subscribe",
         channel: "candles",
-        key: "trade:1m:tBTCUSD"
+        key: `trade:${timeFrame}:${symbol}`
       })
       .handleSnapshot(snapshot => setCandles(parseCandles(snapshot[1])))
       .handleUpdate(value => {
@@ -36,7 +36,7 @@ export default function useBtfxCandles() {
         }
       })
       .subscribe();
-  }, []);
+  }, [timeFrame, symbol]);
 
   return [candles, () => {}];
 }

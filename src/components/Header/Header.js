@@ -4,7 +4,7 @@ import Chart from "../Chart/Chart";
 import useBtfxCandles from "hooks/useBtfxCandles";
 
 export default () => {
-  const [candles, loadMore] = useBtfxCandles();
+  const [candles, loadMore] = useBtfxCandles("1m", "tBTCUSD");
 
   console.log(candles);
 
