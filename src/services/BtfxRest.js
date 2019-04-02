@@ -1,8 +1,7 @@
-import axios from "axios";
+import axios from "utils/axios";
 import { dateToTimeStamp, timeFrameToMS } from "utils/BtfxUtils";
 
 class BtfxRest {
-  REST_URL = "https://api.bitfinex.com/v2/";
   MAX_CANDLES_AMOUNT = 1000;
 
   getCandles = (timeFrame, symbol, dateStart, dateEnd) => {
@@ -10,9 +9,7 @@ class BtfxRest {
 
     return axios
       .get(
-        `${
-          this.REST_URL
-        }candles/trade:${timeFrame}:${symbol}/hist?start=${dateToTimeStamp(
+        `candles/trade:${timeFrame}:${symbol}/hist?start=${dateToTimeStamp(
           dateStart
         )}&end=${dateToTimeStamp(dateEnd)}&limit=${this.MAX_CANDLES_AMOUNT}`
       )

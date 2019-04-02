@@ -4,7 +4,7 @@ import Chart from "../Chart/Chart";
 import useBtfxCandles from "hooks/useBtfxCandles";
 
 export default () => {
-  const [candles, loadMore] = useBtfxCandles("1m", "tBTCUSD");
+  const [candles, loadMoreCandles] = useBtfxCandles("1m", "tBTCUSD");
 
   console.log(candles);
 
@@ -12,7 +12,7 @@ export default () => {
     <>
       <h1>CAJS</h1>
       {!!candles.length ? (
-        <Chart type="hybrid" data={candles} />
+        <Chart type="hybrid" data={candles} loadMoreCandles={loadMoreCandles} />
       ) : (
         <div> Loading ... </div>
       )}

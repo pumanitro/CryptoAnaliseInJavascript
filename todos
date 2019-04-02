@@ -1,6 +1,9 @@
 PRIORITY:
+? -> https://codesandbox.io/s/ly63y37x9z forked load more codesandbox
 [][Core MVP] Fetching more candles with usage of Btfx rest API
-[][BEM] Create useCandles hook 
+    [x][BEM] Create useCandles hook 
+    [x][BEM] Fix rest service - probably CORS  
+    [][BEM] Fix candles response mapping
 
 Core MVP:
 [x] initial data displayed

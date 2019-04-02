@@ -14,7 +14,7 @@ import { MouseCoordinateY } from "react-stockcharts/lib/coordinates";
 
 class CandleStickChart extends React.Component {
   render() {
-    const { type, width, data, ratio } = this.props;
+    const { type, width, data, ratio, loadMoreCandles } = this.props;
     const xAccessor = d => d.date;
     const xExtents = [
       xAccessor(last(data)),
@@ -32,6 +32,7 @@ class CandleStickChart extends React.Component {
         xAccessor={xAccessor}
         xScale={scaleTime()}
         xExtents={xExtents}
+        onLoadMore={loadMoreCandles}
       >
         <Chart id={1} yExtents={d => [d.high, d.low]}>
           <XAxis axisAt="bottom" orient="bottom" ticks={6} />
