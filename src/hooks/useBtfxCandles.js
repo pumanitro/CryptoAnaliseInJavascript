@@ -44,9 +44,7 @@ export default function useBtfxCandles(timeFrame, symbol) {
     () => {
       BtfxRest.getMoreCandles(timeFrame, symbol, candles[0]).then(
         newCandlesPackage => {
-          const newCandles = newCandlesPackage
-            .reverse()
-            .map(candle => parseCandles(candle));
+          const newCandles = parseCandles(newCandlesPackage);
           setCandles([...newCandles, ...candles]);
         }
       );
