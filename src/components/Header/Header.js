@@ -6,8 +6,6 @@ import useBtfxCandles from "hooks/useBtfxCandles";
 export default () => {
   const [candles, loadMoreCandles] = useBtfxCandles("1m", "tBTCUSD");
 
-  console.log(candles);
-
   return (
     <>
       <h1>CAJS</h1>

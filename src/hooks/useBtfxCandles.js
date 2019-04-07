@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import BtfxWSService from "services/BtfxWSService";
 import { parseCandles, parseCandle, dateToTimeStamp } from "utils/BtfxUtils";
-import _ from "lodash";
 import { replaceOrAddAtEnd } from "utils/Collections";
 import BtfxRest from "services/BtfxRest";
 
@@ -33,7 +32,7 @@ export default function useBtfxCandles(timeFrame, symbol) {
             )
           );
         } else {
-          console.log(value);
+          // console.log(value);
         }
       })
       .subscribe();

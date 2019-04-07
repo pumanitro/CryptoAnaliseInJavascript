@@ -1,16 +1,20 @@
 PRIORITY:
 ? -> https://codesandbox.io/s/ly63y37x9z forked load more codesandbox
-[][Core MVP] Fetching more candles with usage of Btfx rest API
+[x][Core MVP] Fetching more candles with usage of Btfx rest API
     [x][BEM] Create useCandles hook 
     [x][BEM] Fix rest service - probably CORS  
-    [][BEM] Fix candles response mapping
+    [x][BEM] Fix candles response mapping
 
 Core MVP:
 [x] initial data displayed
 [x] Updating Candles 
-[] Fetching more candles with usage of Btfx rest API
+[x] Fetching more candles with usage of Btfx rest API
 [] Keeping pane and zoom position after changing data on the chart
 [] Dynamically changing timeFrame and Cryptocurrency
+[] Writing Symulation based on downloaded data
+    [] Look how indicators are made e.g. MA http://rrag.github.io/react-stockcharts/documentation.html#/moving_average
+    [] What type of data can be an input for predictions, how output should looks like
+    [] How can we use Volume bars http://rrag.github.io/react-stockcharts/documentation.html#/volume_bar
 
 Additionally: 
 [] *! jak zerwie połączenie to trzeba nawiązać ponownie
@@ -19,4 +23,3 @@ Additionally:
 
 Bugs/Errors/Meantime tasks:
 [] fix problem with dynamic change of  <CandlestickSeries width={timeIntervalBarWidth(utcMinute)} />
-[] Create useCandles hook 
