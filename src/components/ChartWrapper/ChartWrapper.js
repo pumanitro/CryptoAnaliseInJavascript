@@ -1,6 +1,6 @@
 import React from "react";
 
-import Chart from "../Chart/Chart";
+import Chart from "./Chart/Chart";
 import useBtfxCandles from "hooks/useBtfxCandles";
 
 export default () => {

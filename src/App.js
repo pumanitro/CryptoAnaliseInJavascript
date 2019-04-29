@@ -1,15 +1,21 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import ChartWrapper from "components/ChartWrapper/ChartWrapper";
+import SymbolsDropdown from "components/SymbolsDropdown/SymbolsDropdown";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <h1>CAJS</h1>
-        <ChartWrapper />
-      </div>
-    );
-  }
-}
+export default () => {
+  const [selectedSymbol, setSelectedSymbol] = useState({
+    value: "BTCUSD",
+    label: "BTCUSD"
+  });
 
-export default App;
+  return (
+    <div className="App">
+      <h1>CAJS</h1>
+      <ChartWrapper />
+      <SymbolsDropdown
+        selectedSymbol={selectedSymbol}
+        setSelectedSymbol={setSelectedSymbol}
+      />
+    </div>
+  );
+};
