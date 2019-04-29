@@ -1,25 +1,66 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { scaleTime } from "d3-scale";
-import { utcMinute } from "d3-time";
 import { format } from "d3-format";
 
 import { ChartCanvas, Chart } from "react-stockcharts";
 import { CandlestickSeries } from "react-stockcharts/lib/series";
 import { XAxis, YAxis } from "react-stockcharts/lib/axes";
 import { fitWidth } from "react-stockcharts/lib/helper";
-import { last, timeIntervalBarWidth } from "react-stockcharts/lib/utils";
+import { discontinuousTimeScaleProviderBuilder } from "react-stockcharts/lib/scale";
 import { MouseCoordinateY } from "react-stockcharts/lib/coordinates";
 
 class CandleStickChart extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      start: 0,
+      indexStart: 0
+    };
+  }
+
+  // for debugg purposes:
+  keyHandler = event => {
+    if (event.keyCode === 39) {
+      this.setState({ indexStart: this.state.indexStart + 1 });
+    } else if (event.keyCode === 37) {
+      this.setState({ indexStart: this.state.indexStart - 1 });
+    }
+  };
+
+  // for debugg purposes:
+  componentDidMount() {
+    document.addEventListener("keydown", this.keyHandler, false);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.keyHandler, false);
+  }
+
   render() {
-    const { type, width, data, ratio, loadMoreCandles } = this.props;
-    const xAccessor = d => d.date;
-    const xExtents = [
-      xAccessor(last(data)),
-      xAccessor(data[data.length - 100])
-    ];
+    const { type, width, ratio, loadMoreCandles } = this.props;
+    const { start } = this.state;
+    // const { data, xScale, xAccessor, displayXAccessor } = this.state;
+
+    const { data: initialData } = this.props;
+
+    const indexCalculator = discontinuousTimeScaleProviderBuilder()
+      .initialIndex(Math.ceil(this.state.indexStart))
+      .indexCalculator();
+
+    const { index } = indexCalculator(initialData);
+
+    const xScaleProvider = discontinuousTimeScaleProviderBuilder()
+      .initialIndex(Math.ceil(this.state.indexStart))
+      .withIndex(index);
+
+    const {
+      data: linearData,
+      xScale,
+      xAccessor,
+      displayXAccessor
+    } = xScaleProvider(initialData);
+
     return (
       <ChartCanvas
         height={400}
@@ -28,11 +69,19 @@ class CandleStickChart extends React.Component {
         margin={{ left: 50, right: 50, top: 10, bottom: 30 }}
         type={type}
         seriesName="MSFT"
-        data={data}
+        data={linearData}
+        xScale={xScale}
         xAccessor={xAccessor}
-        xScale={scaleTime()}
-        xExtents={xExtents}
-        onLoadMore={loadMoreCandles}
+        displayXAccessor={displayXAccessor}
+        onLoadMore={(start, end) => {
+          loadMoreCandles().then(({ retrievedCandlesLength }) => {
+            const missingCandlesAmount = Math.ceil(end - start);
+            return this.setState({
+              indexStart:
+                start - (retrievedCandlesLength - missingCandlesAmount)
+            });
+          });
+        }}
       >
         <Chart id={1} yExtents={d => [d.high, d.low]}>
           <XAxis axisAt="bottom" orient="bottom" ticks={6} />
@@ -44,7 +93,7 @@ class CandleStickChart extends React.Component {
             displayFormat={format(".2f")}
           />
 
-          <CandlestickSeries width={timeIntervalBarWidth(utcMinute)} />
+          <CandlestickSeries />
         </Chart>
       </ChartCanvas>
     );

@@ -40,13 +40,16 @@ export default function useBtfxCandles(timeFrame, symbol) {
 
   return [
     candles,
-    () => {
+    () =>
       BtfxRest.getMoreCandles(timeFrame, symbol, candles[0]).then(
         newCandlesPackage => {
-          const newCandles = parseCandles(newCandlesPackage);
-          setCandles([...newCandles, ...candles]);
+          const retrievedCandles = parseCandles(newCandlesPackage);
+          const newCandles = [...retrievedCandles, ...candles];
+          setCandles(newCandles);
+          return {
+            retrievedCandlesLength: retrievedCandles.length
+          };
         }
-      );
-    }
+      )
   ];
 }

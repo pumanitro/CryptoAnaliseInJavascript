@@ -1,9 +1,13 @@
 PRIORITY:
 ? -> https://codesandbox.io/s/ly63y37x9z forked load more codesandbox
+? -> https://codesandbox.io/s/4q88rkpk40
 [x][Core MVP] Fetching more candles with usage of Btfx rest API
     [x][BEM] Create useCandles hook 
     [x][BEM] Fix rest service - probably CORS  
     [x][BEM] Fix candles response mapping
+[] Keeping pane and zoom position after changing data on the chart
+    [] Calculate index taking into consideration 1000 data loaded and previous data and start - stop
+    
 
 Core MVP:
 [x] initial data displayed
@@ -23,3 +27,41 @@ Additionally:
 
 Bugs/Errors/Meantime tasks:
 [] fix problem with dynamic change of  <CandlestickSeries width={timeIntervalBarWidth(utcMinute)} />
+
+Temp notes:
+
+Draw a chart for a start:
+
+1. data
+2. const indexCalculator = discontinuousTimeScaleProviderBuilder().indexCalculator();
+3. const { index } = indexCalculator(data);
+4. const xScaleProvider = discontinuousTimeScaleProviderBuilder().withIndex(
+      index
+    );
+5. 
+    const {
+      data: linearData,
+      xScale,
+      xAccessor,
+      displayXAccessor
+    } = xScaleProvider(calculatedData.slice(-LENGTH_TO_SHOW));
+
+handleDownloadMore:
+
+1. data
+2. const indexCalculator = discontinuousTimeScaleProviderBuilder()
+      .initialIndex(Math.ceil(start))
+      .indexCalculator();
+3. const { index } = indexCalculator(data);
+4. const xScaleProvider = discontinuousTimeScaleProviderBuilder()
+      .initialIndex(Math.ceil(start))
+      .withIndex(index);
+5.  const {
+      data: linearData,
+      xScale,
+      xAccessor,
+      displayXAccessor
+    } = xScaleProvider(data);
+
+Conclusions:
+.initialIndex(Math.ceil(start)) is the difference
