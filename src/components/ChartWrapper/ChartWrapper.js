@@ -8,7 +8,6 @@ export default () => {
 
   return (
     <>
-      <h1>CAJS</h1>
       {!!candles.length ? (
         <Chart type="hybrid" data={candles} loadMoreCandles={loadMoreCandles} />
       ) : (

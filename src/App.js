@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import Header from "components/Header/Header";
+import ChartWrapper from "components/ChartWrapper/ChartWrapper";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header />
+        <h1>CAJS</h1>
+        <ChartWrapper />
       </div>
     );
   }

@@ -5,15 +5,15 @@ PRIORITY:
     [x][BEM] Create useCandles hook 
     [x][BEM] Fix rest service - probably CORS  
     [x][BEM] Fix candles response mapping
-[] Keeping pane and zoom position after changing data on the chart
-    [] Calculate index taking into consideration 1000 data loaded and previous data and start - stop
-    
+[x] Keeping pane and zoom position after changing data on the chart
+    [x] Calculate index taking into consideration 1000 data loaded and previous data and start - stop
+[] Dynamically changing timeFrame and Cryptocurrency
 
 Core MVP:
 [x] initial data displayed
 [x] Updating Candles 
 [x] Fetching more candles with usage of Btfx rest API
-[] Keeping pane and zoom position after changing data on the chart
+[x] Keeping pane and zoom position after changing data on the chart
 [] Dynamically changing timeFrame and Cryptocurrency
 [] Writing Symulation based on downloaded data
     [] Look how indicators are made e.g. MA http://rrag.github.io/react-stockcharts/documentation.html#/moving_average

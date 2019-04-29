@@ -39,19 +39,18 @@ class CandleStickChart extends React.Component {
 
   render() {
     const { type, width, ratio, loadMoreCandles } = this.props;
-    const { start } = this.state;
-    // const { data, xScale, xAccessor, displayXAccessor } = this.state;
+    const { indexStart } = this.state;
 
     const { data: initialData } = this.props;
 
     const indexCalculator = discontinuousTimeScaleProviderBuilder()
-      .initialIndex(Math.ceil(this.state.indexStart))
+      .initialIndex(Math.ceil(indexStart))
       .indexCalculator();
 
     const { index } = indexCalculator(initialData);
 
     const xScaleProvider = discontinuousTimeScaleProviderBuilder()
-      .initialIndex(Math.ceil(this.state.indexStart))
+      .initialIndex(Math.ceil(indexStart))
       .withIndex(index);
 
     const {
