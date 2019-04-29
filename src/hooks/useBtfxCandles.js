@@ -11,6 +11,8 @@ export default function useBtfxCandles(timeFrame, symbol) {
   candlesRef.current = candles;
 
   useEffect(() => {
+    setCandles([]);
+
     new BtfxWSService()
       .defineChannel({
         event: "subscribe",

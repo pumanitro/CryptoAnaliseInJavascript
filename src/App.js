@@ -11,7 +11,7 @@ export default () => {
   return (
     <div className="App">
       <h1>CAJS</h1>
-      <ChartWrapper />
+      <ChartWrapper tradingSymbol={`t${selectedSymbol.value}`} />
       <SymbolsDropdown
         selectedSymbol={selectedSymbol}
         setSelectedSymbol={setSelectedSymbol}
