@@ -7,10 +7,13 @@ PRIORITY:
     [x][BEM] Fix candles response mapping
 [x] Keeping pane and zoom position after changing data on the chart
     [x] Calculate index taking into consideration 1000 data loaded and previous data and start - stop
-[] Dynamically changing  
-  [] timeFrame
+[x] Dynamically changing  
+  [x] timeFrame
   [x] and Cryptocurrency
-
+[] Writing Symulation based on downloaded data
+    [] Look how indicators are made e.g. MA http://rrag.github.io/react-stockcharts/documentation.html#/moving_average
+    [x] What type of data can be an input for predictions, how output should looks like
+    [] How can we use Volume bars http://rrag.github.io/react-stockcharts/documentation.html#/volume_bar
 
 Core MVP:
 [x] initial data displayed
@@ -32,39 +35,3 @@ Bugs/Errors/Meantime tasks:
 [] fix problem with dynamic change of  <CandlestickSeries width={timeIntervalBarWidth(utcMinute)} />
 
 Temp notes:
-
-Draw a chart for a start:
-
-1. data
-2. const indexCalculator = discontinuousTimeScaleProviderBuilder().indexCalculator();
-3. const { index } = indexCalculator(data);
-4. const xScaleProvider = discontinuousTimeScaleProviderBuilder().withIndex(
-      index
-    );
-5. 
-    const {
-      data: linearData,
-      xScale,
-      xAccessor,
-      displayXAccessor
-    } = xScaleProvider(calculatedData.slice(-LENGTH_TO_SHOW));
-
-handleDownloadMore:
-
-1. data
-2. const indexCalculator = discontinuousTimeScaleProviderBuilder()
-      .initialIndex(Math.ceil(start))
-      .indexCalculator();
-3. const { index } = indexCalculator(data);
-4. const xScaleProvider = discontinuousTimeScaleProviderBuilder()
-      .initialIndex(Math.ceil(start))
-      .withIndex(index);
-5.  const {
-      data: linearData,
-      xScale,
-      xAccessor,
-      displayXAccessor
-    } = xScaleProvider(data);
-
-Conclusions:
-.initialIndex(Math.ceil(start)) is the difference

@@ -7,8 +7,14 @@ import { ChartCanvas, Chart } from "react-stockcharts";
 import { CandlestickSeries } from "react-stockcharts/lib/series";
 import { XAxis, YAxis } from "react-stockcharts/lib/axes";
 import { fitWidth } from "react-stockcharts/lib/helper";
+
+import {
+  MouseCoordinateX,
+  MouseCoordinateY
+} from "react-stockcharts/lib/coordinates";
+
+import { timeFormat } from "d3-time-format";
 import { discontinuousTimeScaleProviderBuilder } from "react-stockcharts/lib/scale";
-import { MouseCoordinateY } from "react-stockcharts/lib/coordinates";
 
 class CandleStickChart extends React.Component {
   constructor(props) {
@@ -93,6 +99,17 @@ class CandleStickChart extends React.Component {
           />
 
           <CandlestickSeries />
+
+          <MouseCoordinateX
+            at="bottom"
+            orient="bottom"
+            displayFormat={timeFormat("%Y-%m-%d %H:%M")}
+          />
+          <MouseCoordinateY
+            at="left"
+            orient="left"
+            displayFormat={format(".4s")}
+          />
         </Chart>
       </ChartCanvas>
     );
