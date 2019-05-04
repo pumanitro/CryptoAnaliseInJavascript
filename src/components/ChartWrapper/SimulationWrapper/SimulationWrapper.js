@@ -6,6 +6,7 @@ const sell = candle => console.log("sell => ", candle);
 
 export default ({ simulations, candles }) => {
   const [chosenSimulation, setChosenSimulation] = useState(undefined);
+  const [startingCash, setStartingCash] = useState(1000);
 
   return (
     <>
@@ -18,15 +19,23 @@ export default ({ simulations, candles }) => {
           label: simulation.name
         }))}
       />
-      <div
-        onClick={() =>
-          chosenSimulation &&
-          chosenSimulation.value.simulation({ candles, buy, sell })
-        }
-      >
-        |> Run
-      </div>
       <div>{chosenSimulation && chosenSimulation.value.description}</div>
+      <div>
+        <label>Starting cash:</label>
+        <input
+          type="number"
+          value={startingCash}
+          onChange={e => setStartingCash(e.target.value)}
+        />
+        <span
+          onClick={() =>
+            chosenSimulation &&
+            chosenSimulation.value.simulation({ candles, buy, sell })
+          }
+        >
+          |> Run
+        </span>
+      </div>
     </>
   );
 };
