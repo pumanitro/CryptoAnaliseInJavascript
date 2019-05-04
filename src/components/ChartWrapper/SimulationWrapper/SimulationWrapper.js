@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import Select from "react-select";
 
+const buy = candle => console.log("buy => ", candle);
+const sell = candle => console.log("sell => ", candle);
+
 export default ({ simulations, candles }) => {
   const [chosenSimulation, setChosenSimulation] = useState(undefined);
 
@@ -11,11 +14,19 @@ export default ({ simulations, candles }) => {
         placeholder="Choose simulation..."
         onChange={setChosenSimulation}
         options={simulations.map(simulation => ({
-          value: simulation.simulation,
+          value: simulation,
           label: simulation.name
         }))}
       />
-      <div>|> Run </div>
+      <div
+        onClick={() =>
+          chosenSimulation &&
+          chosenSimulation.value.simulation({ candles, buy, sell })
+        }
+      >
+        |> Run
+      </div>
+      <div>{chosenSimulation && chosenSimulation.value.description}</div>
     </>
   );
 };
