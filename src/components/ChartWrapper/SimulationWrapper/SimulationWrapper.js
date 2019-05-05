@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import Select from "react-select";
 import simulate from "./simulate";
+import SimulationResults from "./SimulationResults/SimulationResults";
 
 export default ({ simulations, candles, setCandles, selectedSymbol }) => {
   const [chosenSimulation, setChosenSimulation] = useState(undefined);
   const [startingCash, setStartingCash] = useState(1000);
+  const [simulationResults, setSimulationResults] = useState(undefined);
 
   return (
     <>
@@ -28,17 +30,22 @@ export default ({ simulations, candles, setCandles, selectedSymbol }) => {
         <span
           onClick={() =>
             chosenSimulation &&
-            simulate({
-              startingCash,
-              simulationObject: chosenSimulation.value,
-              candles,
-              setCandles,
-              selectedSymbol
-            })
+            setSimulationResults(
+              simulate({
+                startingCash,
+                simulationObject: chosenSimulation.value,
+                candles,
+                setCandles,
+                selectedSymbol
+              })
+            )
           }
         >
           |> Run
         </span>
+        {simulationResults && (
+          <SimulationResults simulationResults={simulationResults} />
+        )}
       </div>
     </>
   );

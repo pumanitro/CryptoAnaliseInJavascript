@@ -88,4 +88,6 @@ export default ({
   };
 
   simulationObject.simulation({ candles, buy, sell });
+
+  return summaryData;
 };
