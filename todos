@@ -28,6 +28,7 @@ Core MVP:
     [] What type of data can be an input for predictions, how output should looks like
 
 Additionally: 
+[] *! fees nad Cryptocurrency for start of simulation
 [] *! jak zerwie połączenie to trzeba nawiązać ponownie
 [] * volumes screen displayed
 [] actionCreator copy

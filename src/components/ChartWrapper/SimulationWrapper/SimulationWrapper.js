@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Select from "react-select";
 import simulate from "./simulate";
 
-export default ({ simulations, candles, setCandles }) => {
+export default ({ simulations, candles, setCandles, selectedSymbol }) => {
   const [chosenSimulation, setChosenSimulation] = useState(undefined);
   const [startingCash, setStartingCash] = useState(1000);
 
@@ -32,7 +32,8 @@ export default ({ simulations, candles, setCandles }) => {
               startingCash,
               simulationObject: chosenSimulation.value,
               candles,
-              setCandles
+              setCandles,
+              selectedSymbol
             })
           }
         >
