@@ -99,7 +99,7 @@ class CandleStickChart extends React.Component {
       y: ({ yScale, datum }) => yScale(datum.low),
       fill: "#006517",
       path: buyPath,
-      tooltip: "Go long"
+      tooltip: "Bought"
     };
 
     const shortAnnotationProps = {
@@ -107,7 +107,7 @@ class CandleStickChart extends React.Component {
       y: ({ yScale, datum }) => yScale(datum.high),
       fill: "#FF0000",
       path: sellPath,
-      tooltip: "Go short"
+      tooltip: "Sold"
     };
 
     return (
