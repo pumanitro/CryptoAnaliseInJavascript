@@ -37,7 +37,8 @@ export default ({
       spent: percentageAmount,
       after: {
         yourCash: yourCashAfter,
-        yourCrypto: yourCryptoAfter
+        yourCrypto: yourCryptoAfter,
+        total: yourCashAfter + yourCryptoAfter * averageCryptoPrize
       }
     });
 
@@ -71,7 +72,8 @@ export default ({
       spent: percentageAmount,
       after: {
         yourCash: yourCashAfter,
-        yourCrypto: yourCryptoAfter
+        yourCrypto: yourCryptoAfter,
+        total: yourCashAfter + yourCryptoAfter * averageCryptoPrize
       }
     });
 

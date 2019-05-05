@@ -44,7 +44,10 @@ export default ({ simulations, candles, setCandles, selectedSymbol }) => {
           |> Run
         </span>
         {simulationResults && (
-          <SimulationResults simulationResults={simulationResults} />
+          <SimulationResults
+            simulationResults={simulationResults}
+            startingCash={startingCash}
+          />
         )}
       </div>
     </>
