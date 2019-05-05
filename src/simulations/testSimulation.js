@@ -1,8 +1,9 @@
 export default {
   name: "Test Simulation",
   description:
-    "It only buys, for all available money, CryptoCurrencies on the middle of loaded data.",
+    "It buys, on 1/4 of the chart data, for all money CC and sell it all at 3/4",
   simulation: ({ candles, buy, sell }) => {
-    buy(candles[Math.floor(candles.length / 2)], 100);
+    buy(candles[Math.floor(candles.length / 4)], 100);
+    sell(candles[Math.floor(candles.length / 4) * 3], 100);
   }
 };
