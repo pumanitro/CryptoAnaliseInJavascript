@@ -42,6 +42,7 @@ export default function useBtfxCandles(timeFrame, symbol) {
 
   return [
     candles,
+    setCandles,
     () =>
       BtfxRest.getMoreCandles(timeFrame, symbol, candles[0]).then(
         newCandlesPackage => {

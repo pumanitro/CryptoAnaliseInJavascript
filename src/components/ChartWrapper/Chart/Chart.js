@@ -8,7 +8,16 @@ import { CandlestickSeries, LineSeries } from "react-stockcharts/lib/series";
 import { XAxis, YAxis } from "react-stockcharts/lib/axes";
 import { fitWidth } from "react-stockcharts/lib/helper";
 
-import { ema, wma, sma, tma } from "react-stockcharts/lib/indicator";
+import SIMULATION from "consts/simulation";
+
+import { ema } from "react-stockcharts/lib/indicator";
+
+import {
+  Annotate,
+  SvgPathAnnotation,
+  buyPath,
+  sellPath
+} from "react-stockcharts/lib/annotation";
 
 import {
   MouseCoordinateX,
@@ -80,6 +89,27 @@ class CandleStickChart extends React.Component {
       displayXAccessor
     } = xScaleProvider(ema20(initialData));
 
+    // For annotations:
+    const defaultAnnotationProps = {
+      onClick: console.log.bind(console)
+    };
+
+    const longAnnotationProps = {
+      ...defaultAnnotationProps,
+      y: ({ yScale, datum }) => yScale(datum.low),
+      fill: "#006517",
+      path: buyPath,
+      tooltip: "Go long"
+    };
+
+    const shortAnnotationProps = {
+      ...defaultAnnotationProps,
+      y: ({ yScale, datum }) => yScale(datum.high),
+      fill: "#FF0000",
+      path: sellPath,
+      tooltip: "Go short"
+    };
+
     return (
       <ChartCanvas
         height={400}
@@ -112,6 +142,18 @@ class CandleStickChart extends React.Component {
           />
           <CandlestickSeries />
           <LineSeries yAccessor={ema20.accessor()} stroke={ema20.stroke()} />
+
+          {/* Buy, Sell annotations: */}
+          <Annotate
+            with={SvgPathAnnotation}
+            when={d => d.action === SIMULATION.ACTION.BUY}
+            usingProps={longAnnotationProps}
+          />
+          <Annotate
+            with={SvgPathAnnotation}
+            when={d => d.action === SIMULATION.ACTION.SELL}
+            usingProps={shortAnnotationProps}
+          />
 
           {/* displaying X and Y coordinates on mouse move: */}
           <MouseCoordinateX

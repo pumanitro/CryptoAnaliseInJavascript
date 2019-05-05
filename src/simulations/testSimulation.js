@@ -1,8 +1,8 @@
 export default {
   name: "Test Simulation",
   description:
-    "It only buy, for all available money, CryptoCurrencies on the middle of loaded data.",
+    "It only buys, for all available money, CryptoCurrencies on the middle of loaded data.",
   simulation: ({ candles, buy, sell }) => {
-    buy(candles[candles.length / 2], 100);
+    buy(candles[Math.floor(candles.length / 2)], 100);
   }
 };

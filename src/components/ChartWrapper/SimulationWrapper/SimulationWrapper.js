@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import Select from "react-select";
+import simulate from "./simulate";
 
-const buy = candle => console.log("buy => ", candle);
-const sell = candle => console.log("sell => ", candle);
-
-export default ({ simulations, candles }) => {
+export default ({ simulations, candles, setCandles }) => {
   const [chosenSimulation, setChosenSimulation] = useState(undefined);
   const [startingCash, setStartingCash] = useState(1000);
 
@@ -30,7 +28,12 @@ export default ({ simulations, candles }) => {
         <span
           onClick={() =>
             chosenSimulation &&
-            chosenSimulation.value.simulation({ candles, buy, sell })
+            simulate({
+              startingCash,
+              simulationObject: chosenSimulation.value,
+              candles,
+              setCandles
+            })
           }
         >
           |> Run

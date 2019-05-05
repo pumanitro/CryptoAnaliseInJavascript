@@ -6,7 +6,10 @@ import SimulationWrapper from "./SimulationWrapper/SimulationWrapper";
 import simulations from "simulations";
 
 export default ({ tradingSymbol, timeFrame }) => {
-  const [candles, loadMoreCandles] = useBtfxCandles(timeFrame, tradingSymbol);
+  const [candles, setCandles, loadMoreCandles] = useBtfxCandles(
+    timeFrame,
+    tradingSymbol
+  );
 
   return (
     <>
@@ -17,7 +20,11 @@ export default ({ tradingSymbol, timeFrame }) => {
             data={candles}
             loadMoreCandles={loadMoreCandles}
           />
-          <SimulationWrapper simulations={simulations} candles={candles} />
+          <SimulationWrapper
+            simulations={simulations}
+            candles={candles}
+            setCandles={setCandles}
+          />
         </>
       ) : (
         <div> Loading ... </div>

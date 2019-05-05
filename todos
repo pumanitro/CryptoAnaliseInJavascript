@@ -11,9 +11,11 @@ PRIORITY:
   [x] timeFrame
   [x] and Cryptocurrency
 [] Writing Symulation based on downloaded data
-    [] Look how indicators are made e.g. MA http://rrag.github.io/react-stockcharts/documentation.html#/moving_average
+    [x] Look how indicators are made e.g. MA http://rrag.github.io/react-stockcharts/documentation.html#/moving_average
     [x] What type of data can be an input for predictions, how output should looks like
-    [] How can we use Volume bars http://rrag.github.io/react-stockcharts/documentation.html#/volume_bar
+    [] implement functions
+        [] buy
+        [] sell
 
 Core MVP:
 [x] initial data displayed
@@ -24,14 +26,14 @@ Core MVP:
 [] Writing Symulation based on downloaded data
     [] Look how indicators are made e.g. MA http://rrag.github.io/react-stockcharts/documentation.html#/moving_average
     [] What type of data can be an input for predictions, how output should looks like
-    [] How can we use Volume bars http://rrag.github.io/react-stockcharts/documentation.html#/volume_bar
 
 Additionally: 
 [] *! jak zerwie połączenie to trzeba nawiązać ponownie
 [] * volumes screen displayed
 [] actionCreator copy
+[] How can we use Volume bars http://rrag.github.io/react-stockcharts/documentation.html#/volume_bar
 
 Bugs/Errors/Meantime tasks:
-[] fix problem with dynamic change of  <CandlestickSeries width={timeIntervalBarWidth(utcMinute)} />
+[x] fix problem with dynamic change of  <CandlestickSeries width={timeIntervalBarWidth(utcMinute)} />
 
 Temp notes:
