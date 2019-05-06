@@ -70,6 +70,13 @@ class CandleStickChart extends React.Component {
       .accessor(d => d.ema20) // Required, if not provided, log an error during calculation
       .stroke("blue");
 
+    const ema50 = ema()
+      .options({ windowSize: 50 })
+      .merge((d, c) => {
+        d.ema50 = c;
+      })
+      .accessor(d => d.ema50);
+
     const { data: initialData } = this.props;
 
     const indexCalculator = discontinuousTimeScaleProviderBuilder()
@@ -87,7 +94,7 @@ class CandleStickChart extends React.Component {
       xScale,
       xAccessor,
       displayXAccessor
-    } = xScaleProvider(ema20(initialData));
+    } = xScaleProvider(ema50(ema20(initialData)));
 
     // For annotations:
     const defaultAnnotationProps = {
@@ -132,7 +139,10 @@ class CandleStickChart extends React.Component {
           });
         }}
       >
-        <Chart id={1} yExtents={d => [d.high, d.low, ema20.accessor()]}>
+        <Chart
+          id={1}
+          yExtents={d => [d.high, d.low, ema20.accessor(), ema50.accessor()]}
+        >
           <XAxis axisAt="bottom" orient="bottom" ticks={6} />
           <YAxis axisAt="left" orient="left" ticks={5} />
           <MouseCoordinateY
@@ -142,6 +152,7 @@ class CandleStickChart extends React.Component {
           />
           <CandlestickSeries />
           <LineSeries yAccessor={ema20.accessor()} stroke={ema20.stroke()} />
+          <LineSeries yAccessor={ema50.accessor()} stroke={ema50.stroke()} />
 
           {/* Buy, Sell annotations: */}
           <Annotate

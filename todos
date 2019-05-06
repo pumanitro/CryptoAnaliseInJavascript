@@ -16,7 +16,8 @@ PRIORITY:
     [x] implement functions
         [x] buy
         [x] sell
-[] Add support for maker and taker fees
+[x] Add support for maker and taker fees
+[] Ema20 + ema50 comparison
 
 Core MVP:
 [x] initial data displayed
