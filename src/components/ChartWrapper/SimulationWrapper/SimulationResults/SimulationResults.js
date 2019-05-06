@@ -49,6 +49,7 @@ export default ({ simulationResults, startingCash }) => {
           <TableHeaderEl>Cryptocurrency</TableHeaderEl>
           <TableHeaderEl>Action</TableHeaderEl>
           <TableHeaderEl>Spent</TableHeaderEl>
+          <TableHeaderEl>Fees</TableHeaderEl>
           <TableHeaderEl>Cash After</TableHeaderEl>
           <TableHeaderEl>Cryptocurrency After</TableHeaderEl>
           <TableHeaderEl>Total After</TableHeaderEl>
@@ -63,6 +64,9 @@ export default ({ simulationResults, startingCash }) => {
             </TableRowEl>
             <TableRowEl>{simulationResult.action}</TableRowEl>
             <TableRowEl>{simulationResult.spent}%</TableRowEl>
+            <TableRowEl>
+              {Number(simulationResult.feesInCash).toFixed(2)}
+            </TableRowEl>
             <TableRowEl>
               {Number(simulationResult.after.yourCash).toFixed(2)}
             </TableRowEl>

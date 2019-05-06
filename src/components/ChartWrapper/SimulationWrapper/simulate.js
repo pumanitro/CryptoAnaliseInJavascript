@@ -1,4 +1,5 @@
 import SIMULATION from "consts/simulation";
+import BtfxConsts from "consts/BtfxConsts";
 
 const resetCandlesActions = candles => {
   candles.forEach(candle => (candle.action = undefined));
@@ -26,7 +27,9 @@ export default ({
     const cashForAction = (yourCash * percentageAmount) / 100;
     const averageCryptoPrize = (candle.low + candle.high) / 2;
 
-    const yourCashAfter = yourCash - cashForAction;
+    const fees = cashForAction * BtfxConsts.fees.MAKER;
+
+    const yourCashAfter = yourCash - cashForAction - fees;
 
     const yourCryptoAfter = cashForAction / averageCryptoPrize;
 
@@ -35,6 +38,7 @@ export default ({
       yourCrypto,
       action: SIMULATION.ACTION.BUY,
       spent: percentageAmount,
+      feesInCash: fees,
       after: {
         yourCash: yourCashAfter,
         yourCrypto: yourCryptoAfter,
@@ -61,15 +65,18 @@ export default ({
     const cryptoForAction = (yourCrypto * percentageAmount) / 100;
     const averageCryptoPrize = (candle.low + candle.high) / 2;
 
+    const fees = cryptoForAction * BtfxConsts.fees.TAKER;
+
     const yourCashAfter = yourCash + cryptoForAction * averageCryptoPrize;
 
-    const yourCryptoAfter = yourCrypto - cryptoForAction;
+    const yourCryptoAfter = yourCrypto - cryptoForAction - fees;
 
     summaryData.push({
       yourCash,
       yourCrypto,
       action: SIMULATION.ACTION.SELL,
       spent: percentageAmount,
+      feesInCash: fees * averageCryptoPrize,
       after: {
         yourCash: yourCashAfter,
         yourCrypto: yourCryptoAfter,

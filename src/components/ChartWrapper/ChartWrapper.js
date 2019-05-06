@@ -5,10 +5,10 @@ import useBtfxCandles from "hooks/useBtfxCandles";
 import SimulationWrapper from "./SimulationWrapper/SimulationWrapper";
 import simulations from "simulations";
 
-export default ({ tradingSymbol, timeFrame }) => {
+export default ({ selectedSymbol, timeFrame }) => {
   const [candles, setCandles, loadMoreCandles] = useBtfxCandles(
     timeFrame,
-    tradingSymbol
+    `t${selectedSymbol}`
   );
 
   return (
@@ -24,6 +24,7 @@ export default ({ tradingSymbol, timeFrame }) => {
             simulations={simulations}
             candles={candles}
             setCandles={setCandles}
+            selectedSymbol={selectedSymbol}
           />
         </>
       ) : (

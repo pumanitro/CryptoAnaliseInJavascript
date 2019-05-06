@@ -18,6 +18,11 @@ class Consts {
   symbol = {
     BTCUSD: "BTCUSD"
   };
+
+  fees = {
+    TAKER: 0.2 / 100,
+    MAKER: 0.1 / 100
+  };
 }
 
 export default new Consts();

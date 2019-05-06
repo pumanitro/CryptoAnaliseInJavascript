@@ -10,12 +10,13 @@ PRIORITY:
 [x] Dynamically changing  
   [x] timeFrame
   [x] and Cryptocurrency
-[] Writing Symulation based on downloaded data
+[x] Writing Symulation based on downloaded data
     [x] Look how indicators are made e.g. MA http://rrag.github.io/react-stockcharts/documentation.html#/moving_average
     [x] What type of data can be an input for predictions, how output should looks like
-    [] implement functions
-        [] buy
-        [] sell
+    [x] implement functions
+        [x] buy
+        [x] sell
+[] Add support for maker and taker fees
 
 Core MVP:
 [x] initial data displayed
