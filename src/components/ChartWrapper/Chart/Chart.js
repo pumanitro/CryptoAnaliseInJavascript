@@ -4,7 +4,11 @@ import PropTypes from "prop-types";
 import { format } from "d3-format";
 
 import { ChartCanvas, Chart } from "react-stockcharts";
-import { CandlestickSeries, LineSeries } from "react-stockcharts/lib/series";
+import {
+  CandlestickSeries,
+  LineSeries,
+  MACDSeries
+} from "react-stockcharts/lib/series";
 import { XAxis, YAxis } from "react-stockcharts/lib/axes";
 import { fitWidth } from "react-stockcharts/lib/helper";
 
@@ -22,8 +26,29 @@ import {
   MouseCoordinateY
 } from "react-stockcharts/lib/coordinates";
 
+import { MACDTooltip } from "react-stockcharts/lib/tooltip";
+
 import { timeFormat } from "d3-time-format";
 import { discontinuousTimeScaleProviderBuilder } from "react-stockcharts/lib/scale";
+
+const mouseEdgeAppearance = {
+  textFill: "#542605",
+  stroke: "#05233B",
+  strokeOpacity: 1,
+  strokeWidth: 3,
+  arrowWidth: 5,
+  fill: "#BCDEFA"
+};
+
+const macdAppearance = {
+  stroke: {
+    macd: "#FF0000",
+    signal: "#00F300"
+  },
+  fill: {
+    divergence: "#4682B4"
+  }
+};
 
 class CandleStickChart extends React.Component {
   constructor(props) {
@@ -58,7 +83,7 @@ class CandleStickChart extends React.Component {
       width,
       ratio,
       loadMoreCandles,
-      indicators: { ema20, ema50 }
+      indicators: { macdCalculator }
     } = this.props;
     const { indexStart } = this.state;
 
@@ -68,7 +93,7 @@ class CandleStickChart extends React.Component {
       .initialIndex(Math.ceil(indexStart))
       .indexCalculator();
 
-    const { index } = indexCalculator(ema50(ema20(initialData)));
+    const { index } = indexCalculator(macdCalculator(initialData));
 
     const xScaleProvider = discontinuousTimeScaleProviderBuilder()
       .initialIndex(Math.ceil(indexStart))
@@ -79,7 +104,7 @@ class CandleStickChart extends React.Component {
       xScale,
       xAccessor,
       displayXAccessor
-    } = xScaleProvider(ema50(ema20(initialData)));
+    } = xScaleProvider(macdCalculator(initialData));
 
     // For annotations:
     const defaultAnnotationProps = {
@@ -102,16 +127,9 @@ class CandleStickChart extends React.Component {
       tooltip: "Sold"
     };
 
-    const test = [
-      ema20.accessor(),
-      ema20.stroke(),
-      ema50(ema20(initialData)),
-      initialData
-    ];
-
     return (
       <ChartCanvas
-        height={400}
+        height={600}
         ratio={ratio}
         width={width}
         margin={{ left: 50, right: 50, top: 10, bottom: 30 }}
@@ -131,10 +149,7 @@ class CandleStickChart extends React.Component {
           });
         }}
       >
-        <Chart
-          id={1}
-          yExtents={d => [d.high, d.low, ema20.accessor(), ema50.accessor()]}
-        >
+        <Chart id={1} yExtents={d => [d.high, d.low]} height={350}>
           <XAxis axisAt="bottom" orient="bottom" ticks={6} />
           <YAxis axisAt="left" orient="left" ticks={5} />
           <MouseCoordinateY
@@ -143,8 +158,6 @@ class CandleStickChart extends React.Component {
             displayFormat={format(".2f")}
           />
           <CandlestickSeries />
-          <LineSeries yAccessor={ema20.accessor()} stroke={ema20.stroke()} />
-          <LineSeries yAccessor={ema50.accessor()} stroke={ema50.stroke()} />
 
           {/* Buy, Sell annotations: */}
           <Annotate
@@ -168,6 +181,38 @@ class CandleStickChart extends React.Component {
             at="left"
             orient="left"
             displayFormat={format(".4s")}
+          />
+        </Chart>
+        <Chart
+          id={2}
+          height={150}
+          yExtents={macdCalculator.accessor()}
+          origin={(w, h) => [0, h - 150]}
+          padding={{ top: 10, bottom: 10 }}
+        >
+          <XAxis axisAt="bottom" orient="bottom" />
+          <YAxis axisAt="right" orient="right" ticks={2} />
+
+          <MouseCoordinateX
+            at="bottom"
+            orient="bottom"
+            displayFormat={timeFormat("%Y-%m-%d")}
+            rectRadius={5}
+            {...mouseEdgeAppearance}
+          />
+          <MouseCoordinateY
+            at="right"
+            orient="right"
+            displayFormat={format(".2f")}
+            {...mouseEdgeAppearance}
+          />
+
+          <MACDSeries yAccessor={d => d.macd} {...macdAppearance} />
+          <MACDTooltip
+            origin={[-38, 15]}
+            yAccessor={d => d.macd}
+            options={macdCalculator.options()}
+            appearance={macdAppearance}
           />
         </Chart>
       </ChartCanvas>

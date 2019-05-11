@@ -21,7 +21,12 @@ export default ({
 
   const buy = (candle, percentageAmount) => {
     if (percentageAmount > 100) {
-      throw new Error("Percentage amount can be bigger than 100%.");
+      throw new Error("Percentage amount can't be bigger than 100%.");
+    }
+
+    if (yourCash <= 0) {
+      console.warn("You can't buy if your cash amount is equal or less than 0");
+      return null;
     }
 
     const cashForAction = (yourCash * percentageAmount) / 100;
@@ -54,12 +59,19 @@ export default ({
     // Refresh chart with mutated candles - faster than finding a candle and replacing it with a new one:
     setCandles([...candles]);
 
-    console.log("buy => ", candle);
-    console.log("summaryData = ", summaryData);
+    // console.log("buy => ", candle);
+    // console.log("summaryData = ", summaryData);
   };
   const sell = (candle, percentageAmount) => {
     if (percentageAmount > 100) {
       throw new Error("Percentage amount can be bigger than 100%.");
+    }
+
+    if (yourCrypto <= 0) {
+      console.warn(
+        "You can't sell if your crypto amount is equal or less than 0"
+      );
+      return null;
     }
 
     const cryptoForAction = (yourCrypto * percentageAmount) / 100;
@@ -92,8 +104,8 @@ export default ({
     // Refresh chart with mutated candles - faster than finding a candle and replacing it with a new one:
     setCandles([...candles]);
 
-    console.log("sell => ", candle);
-    console.log("summaryData = ", summaryData);
+    // console.log("sell => ", candle);
+    // console.log("summaryData = ", summaryData);
   };
 
   simulationObject.simulation({ candles, buy, sell });
