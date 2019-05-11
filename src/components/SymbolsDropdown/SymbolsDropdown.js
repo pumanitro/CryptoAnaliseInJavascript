@@ -23,7 +23,7 @@ export default ({ selectedSymbol, setSelectedSymbol }) => {
     <Select
       value={selectedSymbol}
       onChange={setSelectedSymbol}
-      styles={{ menu: base => ({ ...base, zIndex: 2 }) }}
+      styles={{ menu: base => ({ ...base, zIndex: 999 }) }}
       options={cryptocurrencySymbols}
     />
   );
