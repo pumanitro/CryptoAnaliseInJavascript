@@ -4,13 +4,32 @@ import Chart from "./Chart/Chart";
 import useBtfxCandles from "hooks/useBtfxCandles";
 import SimulationWrapper from "./SimulationWrapper/SimulationWrapper";
 import simulations from "simulations";
-import { macd } from "react-stockcharts/lib/indicator";
+import { macd, ema } from "react-stockcharts/lib/indicator";
 
 export default ({ selectedSymbol, timeFrame }) => {
   const [candles, setCandles, loadMoreCandles] = useBtfxCandles(
     timeFrame,
     `t${selectedSymbol}`
   );
+
+  const ema12 = ema()
+    .options({
+      windowSize: 12, // optional will default to 10
+      sourcePath: "close" // optional will default to close as the source
+    })
+    .skipUndefined(true) // defaults to true
+    .merge((d, c) => {
+      d.ema12 = c;
+    }) // Required, if not provided, log a error
+    .accessor(d => d.ema12) // Required, if not provided, log an error during calculation
+    .stroke("blue");
+
+  const ema26 = ema()
+    .options({ windowSize: 26 })
+    .merge((d, c) => {
+      d.ema26 = c;
+    })
+    .accessor(d => d.ema26);
 
   const macdCalculator = macd()
     .options({
@@ -24,7 +43,9 @@ export default ({ selectedSymbol, timeFrame }) => {
     .accessor(d => d.macd);
 
   const indicators = {
-    macdCalculator
+    macdCalculator,
+    ema12,
+    ema26
   };
 
   // Running all indicators:

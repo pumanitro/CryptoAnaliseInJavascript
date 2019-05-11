@@ -83,7 +83,7 @@ class CandleStickChart extends React.Component {
       width,
       ratio,
       loadMoreCandles,
-      indicators: { macdCalculator }
+      indicators: { macdCalculator, ema12, ema26 }
     } = this.props;
     const { indexStart } = this.state;
 
@@ -93,7 +93,9 @@ class CandleStickChart extends React.Component {
       .initialIndex(Math.ceil(indexStart))
       .indexCalculator();
 
-    const { index } = indexCalculator(macdCalculator(initialData));
+    const dataWithIndicators = ema26(ema12(macdCalculator(initialData)));
+
+    const { index } = indexCalculator(dataWithIndicators);
 
     const xScaleProvider = discontinuousTimeScaleProviderBuilder()
       .initialIndex(Math.ceil(indexStart))
@@ -104,7 +106,7 @@ class CandleStickChart extends React.Component {
       xScale,
       xAccessor,
       displayXAccessor
-    } = xScaleProvider(macdCalculator(initialData));
+    } = xScaleProvider(dataWithIndicators);
 
     // For annotations:
     const defaultAnnotationProps = {
@@ -149,7 +151,11 @@ class CandleStickChart extends React.Component {
           });
         }}
       >
-        <Chart id={1} yExtents={d => [d.high, d.low]} height={350}>
+        <Chart
+          id={1}
+          yExtents={d => [d.high, d.low, ema12.accessor(), ema26.accessor()]}
+          height={350}
+        >
           <XAxis axisAt="bottom" orient="bottom" ticks={6} />
           <YAxis axisAt="left" orient="left" ticks={5} />
           <MouseCoordinateY
@@ -158,6 +164,9 @@ class CandleStickChart extends React.Component {
             displayFormat={format(".2f")}
           />
           <CandlestickSeries />
+
+          <LineSeries yAccessor={ema12.accessor()} stroke={ema12.stroke()} />
+          <LineSeries yAccessor={ema26.accessor()} stroke={ema26.stroke()} />
 
           {/* Buy, Sell annotations: */}
           <Annotate
