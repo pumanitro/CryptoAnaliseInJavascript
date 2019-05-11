@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 
 import Chart from "./Chart/Chart";
 import useBtfxCandles from "hooks/useBtfxCandles";
@@ -55,12 +55,21 @@ export default ({ selectedSymbol, timeFrame }) => {
     <>
       {!!candles.length ? (
         <>
-          <Chart
-            type="hybrid"
-            data={candles}
-            indicators={indicators}
-            loadMoreCandles={loadMoreCandles}
-          />
+          <div
+            onMouseEnter={e =>
+              (document.documentElement.style.overflow = "hidden")
+            }
+            onMouseLeave={e =>
+              (document.documentElement.style.overflow = "scroll")
+            }
+          >
+            <Chart
+              type="hybrid"
+              data={candles}
+              indicators={indicators}
+              loadMoreCandles={loadMoreCandles}
+            />
+          </div>
           <SimulationWrapper
             simulations={simulations}
             candles={candles}
