@@ -3,8 +3,7 @@ import SIMULATION from "consts/simulation";
 
 export default {
   name: "Macd",
-  description:
-    "It buys, on 1/4 of the chart data, for all money CC and sell it all at 3/4",
+  description: "It buys when MACD cross 0 and is positive, otherwise it sells.",
   simulation: ({ candles, buy, sell }) => {
     // finding first defined MACD:
     let lastAction =

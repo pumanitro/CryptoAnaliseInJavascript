@@ -70,6 +70,7 @@ export default ({ selectedSymbol, timeFrame }) => {
               loadMoreCandles={loadMoreCandles}
             />
           </div>
+          <h2>Simulation</h2>
           <SimulationWrapper
             simulations={simulations}
             candles={candles}
