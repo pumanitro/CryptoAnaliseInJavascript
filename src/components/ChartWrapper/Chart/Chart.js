@@ -10,8 +10,6 @@ import { fitWidth } from "react-stockcharts/lib/helper";
 
 import SIMULATION from "consts/simulation";
 
-import { ema } from "react-stockcharts/lib/indicator";
-
 import {
   Annotate,
   SvgPathAnnotation,
@@ -55,27 +53,14 @@ class CandleStickChart extends React.Component {
   }
 
   render() {
-    const { type, width, ratio, loadMoreCandles } = this.props;
+    const {
+      type,
+      width,
+      ratio,
+      loadMoreCandles,
+      indicators: { ema20, ema50 }
+    } = this.props;
     const { indexStart } = this.state;
-
-    const ema20 = ema()
-      .options({
-        windowSize: 20, // optional will default to 10
-        sourcePath: "close" // optional will default to close as the source
-      })
-      .skipUndefined(true) // defaults to true
-      .merge((d, c) => {
-        d.ema20 = c;
-      }) // Required, if not provided, log a error
-      .accessor(d => d.ema20) // Required, if not provided, log an error during calculation
-      .stroke("blue");
-
-    const ema50 = ema()
-      .options({ windowSize: 50 })
-      .merge((d, c) => {
-        d.ema50 = c;
-      })
-      .accessor(d => d.ema50);
 
     const { data: initialData } = this.props;
 
@@ -83,7 +68,7 @@ class CandleStickChart extends React.Component {
       .initialIndex(Math.ceil(indexStart))
       .indexCalculator();
 
-    const { index } = indexCalculator(initialData);
+    const { index } = indexCalculator(ema50(ema20(initialData)));
 
     const xScaleProvider = discontinuousTimeScaleProviderBuilder()
       .initialIndex(Math.ceil(indexStart))
@@ -116,6 +101,13 @@ class CandleStickChart extends React.Component {
       path: sellPath,
       tooltip: "Sold"
     };
+
+    const test = [
+      ema20.accessor(),
+      ema20.stroke(),
+      ema50(ema20(initialData)),
+      initialData
+    ];
 
     return (
       <ChartCanvas
