@@ -60,7 +60,7 @@ export default ({ selectedSymbol, timeFrame }) => {
               (document.documentElement.style.overflow = "hidden")
             }
             onMouseLeave={e =>
-              (document.documentElement.style.overflow = "scroll")
+              (document.documentElement.style.overflow = "auto")
             }
           >
             <Chart

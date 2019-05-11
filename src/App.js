@@ -17,10 +17,6 @@ export default () => {
   return (
     <div className="App">
       <h1>CAJS</h1>
-      <ChartWrapper
-        selectedSymbol={selectedSymbol.value}
-        timeFrame={selectedTimeFrame.value}
-      />
       <SymbolsDropdown
         selectedSymbol={selectedSymbol}
         setSelectedSymbol={setSelectedSymbol}
@@ -28,6 +24,10 @@ export default () => {
       <TimeFrameDropdown
         selectedTimeFrame={selectedTimeFrame}
         setSelectedTimeFrame={setSelectedTimeFrame}
+      />
+      <ChartWrapper
+        selectedSymbol={selectedSymbol.value}
+        timeFrame={selectedTimeFrame.value}
       />
     </div>
   );

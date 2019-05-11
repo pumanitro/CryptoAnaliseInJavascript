@@ -7,6 +7,7 @@ export default ({ selectedTimeFrame, setSelectedTimeFrame }) => {
     <Select
       value={selectedTimeFrame}
       onChange={setSelectedTimeFrame}
+      styles={{ menu: base => ({ ...base, zIndex: 2 }) }}
       options={Object.values(BtfxConsts.timeFrame).map(timeFrame => ({
         value: timeFrame,
         label: timeFrame
