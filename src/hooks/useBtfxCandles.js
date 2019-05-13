@@ -7,8 +7,8 @@ import BtfxRest from "services/BtfxRest";
 export default function useBtfxCandles(timeFrame, symbol) {
   let [candles, setCandles] = useState([]);
 
-  let candlesRef = useRef(candles);
-  candlesRef.current = candles;
+  let currentRef = useRef({ candles, timeFrame, symbol });
+  currentRef.current = { candles, timeFrame, symbol };
 
   useEffect(() => {
     setCandles([]);
@@ -21,12 +21,16 @@ export default function useBtfxCandles(timeFrame, symbol) {
       })
       .handleSnapshot(snapshot => setCandles(parseCandles(snapshot[1])))
       .handleUpdate(value => {
-        if (value[1] !== "hb") {
+        if (
+          value[1] !== "hb" &&
+          currentRef.current.timeFrame === timeFrame &&
+          currentRef.current.symbol === symbol
+        ) {
           const parsedCandle = parseCandle(value[1]);
 
           setCandles(
             replaceOrAddAtEnd(
-              candlesRef.current,
+              currentRef.current.candles,
               candle =>
                 dateToTimeStamp(parsedCandle.date) ===
                 dateToTimeStamp(candle.date),
