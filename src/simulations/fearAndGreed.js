@@ -1,6 +1,8 @@
 import _ from "lodash";
 import SIMULATION from "consts/simulation";
 
+// data taken from Fear & Greed official website:
+// https://alternative.me/crypto/fear-and-greed-index/
 const fearAndGreedData = {
   "labels": [
     "1 Feb, 2018",
