@@ -1,6 +1,11 @@
 // data taken from Google Finance VIX chart:
 // https://www.google.com/finance/quote/VIX:INDEXCBOE?sa=X&ved=2ahUKEwiGhL7G2en3AhWDuYsKHX32BsoQ3ecFegQIBxAg&window=5Y
-const vixData = [
+/* Plus these data operation in console:
+data = data.split('\n');
+data = data.map(el => el.split('\t'))
+data = data.map(el => [el[0].split(' ')[0], el[1]])
+* */
+export const vixData = [
     [
         "01/01/2013",
         "18.02"
@@ -9435,7 +9440,7 @@ const vixData = [
     ],
 ];
 
-const convertToDate = (dateString) => {
+export const convertToDate = (dateString) => {
     //  Convert a "dd/MM/yyyy" string into a Date object
     let d = dateString.split("/");
     let dat = new Date(d[2] + '/' + d[1] + '/' + d[0]);
@@ -9448,6 +9453,7 @@ export default {
         "It buys at VIX above 30 and sells below 16",
     simulation: ({ candles, buy, sell }) => {
         const buyDates = vixData.reduce((acc, value, index) => {
+            // TODO: in previous simulation it was 30
             if(Number(value[1]) >= 30) {
                 acc.push(convertToDate(value[0]));
             }

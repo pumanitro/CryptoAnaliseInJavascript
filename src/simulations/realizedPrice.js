@@ -4,7 +4,7 @@
 // https://www.lookintobitcoin.com/charts/realized-price/
 // _dash-update-component endpoint in network tab
 
-const realizedPriceData = {
+export const realizedPriceData = {
     "customdata": [
         [
             "2010-08-17",
